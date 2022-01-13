@@ -6,30 +6,42 @@
 
   let graph;
   let simulation: d3.Simulation<any, any>
+  let x = 0;
+  let y = 0;
+  let strength = 1;
 
-
-  const afterXChange = (value) => {
-    simulation.force('x', d3.forceX(value));
+  const updateSimulation = () => {
+    simulation.force('x', d3.forceX(x).strength(strength)).force('y', d3.forceY(y).strength(strength));
     graph.restart();
   }
 
+  const afterStrengthChange = (value) => {
+    strength = value;
+    updateSimulation();
+  }
+
+  const afterXChange = (value) => {
+    x = value
+    updateSimulation();
+  }
+
   const afterYChange = (value) => {
-    simulation.force('y', d3.forceY(value));
-    graph.restart();
+    y = value;
+    updateSimulation();
   }
 
   onMount(() => {
     simulation = graph.getSimulation();
-    simulation.force('x', d3.forceX(0)).force('y', d3.forceY(0));
-    graph.start();
+    updateSimulation();
   })
 
 </script>
 
 <main>
   <h2>Position</h2>
-  <Slider title={'x值'} minValue={-300} defaultValue={0} maxValue={300} afterChange={afterXChange} />
-  <Slider title={'y值'} minValue={-300} defaultValue={0} maxValue={300} afterChange={afterYChange} />
+  <Slider title={'x值'} minValue={-300} value={x} maxValue={300} afterChange={afterXChange} />
+  <Slider title={'y值'} minValue={-300} value={y} maxValue={300} afterChange={afterYChange} />
+  <Slider title={'strength：'} minValue={0} step={0.1} value={strength} maxValue={50} afterChange={afterStrengthChange} />
   <Graph bind:this={graph}/>
 </main>
 

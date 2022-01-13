@@ -9,6 +9,7 @@
   let openPosition = true;
   let positionX = 0;
   let positionY = 0;
+  let positionStrength = 1;
 
   let openCharge = true;
   let charge = -30;
@@ -30,7 +31,7 @@
     else simulation.force('radial', null)
     if (openCollide) simulation.force('collide', d3.forceCollide().radius(collide).strength(collideStrength).iterations(collideIteration))
     else simulation.force('collide', null)
-    if (openPosition) simulation.force('x', d3.forceX(positionX)).force('y', d3.forceY(positionY))
+    if (openPosition) simulation.force('x', d3.forceX(positionX).strength(positionStrength)).force('y', d3.forceY(positionY).strength(positionStrength))
     else simulation.force('x', null).force('y', null)
 
     graph.restart();
@@ -43,6 +44,11 @@
 
   const afterPositionYChange = (value) => {
     positionY = value;
+    updateSimulation();
+  }
+
+  const afterPositionStrengthChange = (value) => {
+    positionStrength = value;
     updateSimulation();
   }
 
@@ -111,11 +117,12 @@
   <h5><input type="checkbox" checked={openPosition} on:change={switchPostion}> Position</h5>
   <Slider title={'x值'} minValue={-300} value={positionX} maxValue={300} afterChange={afterPositionXChange} />
   <Slider title={'y值'} minValue={-300} value={positionY} maxValue={300} afterChange={afterPositionYChange} />
+  <Slider title={'strength：'} minValue={0} step={0.1} value={positionStrength} maxValue={50} afterChange={afterPositionStrengthChange} />
   <h5><input type="checkbox" checked={openCharge} on:change={switchCharge}> Charge</h5>
-  <Slider title={'charge的值'} minValue={-300} value={charge} maxValue={300} afterChange={afterChargeChange} />
+  <Slider title={'charge的值'} minValue={-50} value={charge} step={0.1} maxValue={50} afterChange={afterChargeChange} />
   <h5><input type="checkbox" checked={openCollide} on:change={switchCollide}> Collide</h5>
   <Slider title={'collide：'} minValue={0} value={collide} maxValue={300} afterChange={afterCollideChange} />
-  <Slider title={'strength：'} minValue={0} value={collideStrength} maxValue={100} afterChange={afterCollideStrengthChange} />
+  <Slider title={'strength：'} minValue={0} step={0.1} value={collideStrength} maxValue={50} afterChange={afterCollideStrengthChange} />
   <Slider title={'iterations：'} minValue={0} value={collideIteration} maxValue={100} afterChange={afterCollideIterationChange} />
   <h5><input type="checkbox" checked={openRadial} on:change={switchRadial}> Radial</h5>
   <Slider title={'radius：'} minValue={0} value={radialRadius} maxValue={300} afterChange={afterRadiaChange} />

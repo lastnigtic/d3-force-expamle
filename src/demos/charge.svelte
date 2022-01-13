@@ -22,7 +22,7 @@
 
 <main>
   <h2>Charge</h2>
-  <Slider title={'charge的值'} minValue={-300} defaultValue={-30} maxValue={300} afterChange={afterChargeChange} />
+  <Slider title={'charge的值'} minValue={-100} step={0.1} defaultValue={-30} maxValue={100} afterChange={afterChargeChange} />
   <Graph bind:this={graph}/>
 </main>
 

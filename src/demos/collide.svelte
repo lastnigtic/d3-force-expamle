@@ -43,7 +43,7 @@
 <main>
   <h2>Collide</h2>
   <Slider title={'collide：'} minValue={0} value={radius} maxValue={300} afterChange={afterRadiusChange} />
-  <Slider title={'strength：'} minValue={0} value={strength} maxValue={100} afterChange={afterStrengthChange} />
+  <Slider title={'strength：'} minValue={0} step={0.1} value={strength} maxValue={50} afterChange={afterStrengthChange} />
   <Slider title={'iterations：'} minValue={0} value={iteration} maxValue={100} afterChange={afterIterationChange} />
   <Graph bind:this={graph}/>
 </main>
