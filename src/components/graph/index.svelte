@@ -105,8 +105,8 @@
 
 <main>
   <div class="ctrl-wrapper">
-    <span class="button" on:click={play}>▶️</span>
-    <span class="button" on:click={stop}>❙❙</span>
+    <span class="button" on:click={play}>播放</span>
+    <span class="button" on:click={stop}>暂停</span>
     <Slider 
       title={`帧: ${curFrame}`}
       minValue={1}
@@ -137,7 +137,7 @@
   .button {
     display: inline-block;
     cursor: pointer;
-    width: 20px;
+    padding: 0 8px;
     height: 20px;
     font-size: 16px;
     background: #eeeeee;
